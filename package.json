@@ -9,11 +9,19 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "proxy": "http://localhost:5173",
   "dependencies": {
     "@axe-core/react": "^4.11.0",
+    "@tailwindcss/vite": "^4.1.17",
     "axe-core": "^4.11.0",
+    "axios": "^1.13.2",
+    "chart.js": "^4.5.1",
+    "http-proxy-middleware": "^3.0.5",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6",
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
