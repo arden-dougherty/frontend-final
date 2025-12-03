@@ -34,7 +34,6 @@ const Top = () => {
   }, []);
 
   const adventures = data.adventures;
-  console.log(adventures);
 
   try {
     const monsterCount = {};
