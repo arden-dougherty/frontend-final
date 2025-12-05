@@ -41,38 +41,9 @@ function SearchMonster(props) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    /*
-    const fetchAdventureData = async () => {
-      try {
-        let page = 1;
-
-        const response = await fetch(`${url}${page}`);
-        const data = await response.json();
-        let adventures = data.adventures;
-
-        const total = data.total_count;
-        const pages = total / 20;
-
-        while (page < pages) {
-          ++page;
-          const response2 = await fetch(`${url}${page}`);
-          const data2 = await response2.json();
-          adventures = adventures.concat(data2.adventures);
-        }
-
-        setAdventureData(adventures);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchAdventureData();
-    */
     const pages = 172;
 
-    for (let page = 1; page < 172; ++page) {
+    for (let page = 1; page < pages; ++page) {
       axios
         .get(`${url}${page}`)
         .then((response) => {
@@ -93,6 +64,7 @@ function SearchMonster(props) {
   const adventures = uniqueIds.map((id) =>
     allAdventures.find((adventure) => adventure.id === id)
   );
+
   try {
     const adventuresFiltered = adventures.filter((adventure) => {
       if (
@@ -146,14 +118,16 @@ function SearchMonster(props) {
 
 const Search = () => {
   return (
-    <div className="flex flex-col items-center gap-5 p-5 bg-gray-50">
-      <h1 className="text-3xl">Enter a monster to start searching:</h1>
+    <div className="flex flex-col items-center gap-5 p-5">
+      <h1 className="text-3xl text-center">
+        Enter a monster to start searching:
+      </h1>
       <div>
         <input
           type="search"
           id="searchBar"
           placeholder="Search"
-          className="border border-neutral-200 rounded bg-neutral-100 px-3 py-2 mx-3"
+          className="border border-neutral-200 rounded bg-gray-100 px-3 py-2 mx-3"
         />
         <SearchButton />
       </div>

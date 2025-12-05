@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home.jsx";
 import Top from "./components/Top.jsx";
 import Search from "./components/Search.jsx";
+import Editions from "./components/Editions.jsx";
 
 function App() {
   return (
@@ -15,15 +16,21 @@ function App() {
         </Link>
         <Link
           className="rounded-md px-3 pt-1 text-lg text-gray-300 hover:bg-white/5 hover:text-white"
-          to="/top"
-        >
-          Top
-        </Link>
-        <Link
-          className="rounded-md px-3 pt-1 text-lg text-gray-300 hover:bg-white/5 hover:text-white"
           to="/search"
         >
           Search
+        </Link>
+        <Link
+          className="rounded-md px-3 pt-1 text-lg text-gray-300 hover:bg-white/5 hover:text-white"
+          to="/top"
+        >
+          Top Monsters
+        </Link>
+        <Link
+          className="rounded-md px-3 pt-1 text-lg text-gray-300 hover:bg-white/5 hover:text-white"
+          to="/editions"
+        >
+          Edition Breakdown
         </Link>
       </nav>
 
@@ -31,6 +38,7 @@ function App() {
         <Route exact path="/" element={<Home title="Home" />} />
         <Route exact path="/top" element={<Top title="Top" />} />
         <Route exact path="/search" element={<Search title="Search" />} />
+        <Route exact path="/editions" element={<Editions title="Editions" />} />
       </Routes>
     </Router>
   );
