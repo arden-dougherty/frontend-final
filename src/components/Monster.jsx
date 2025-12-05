@@ -105,7 +105,8 @@ const Monster = function renderMonster(props) {
             .join(", ")}
         </p>
         <p>
-          <strong>Languages</strong> {data.languages}
+          <strong>Languages</strong>{" "}
+          {data.languages.length !== 0 ? `${data.languages}` : "-"}
         </p>
         <p>
           <strong>Challenge</strong>{" "}
@@ -156,6 +157,14 @@ const skillString = function skillsFromProficiencies(proficiencies) {
     .filter((item) => item.proficiency.index.includes("skill"))
     .map((item) => `${item.proficiency.name.slice(7)} +${item.value}`)
     .join(", ");
+};
+
+const Speed = function renderSpeed(props) {
+  return (
+    <p>
+      <strong>Speed:</strong> {data.speed.walk}
+    </p>
+  );
 };
 
 const SavingThrows = function renderSavingThrows(props) {

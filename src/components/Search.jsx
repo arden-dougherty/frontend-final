@@ -6,7 +6,9 @@ import axios from "axios";
 import capitalize from "../utils/utils";
 import Monster from "./Monster";
 
-const url = "/adventurelookup/api/adventures?sortBy=reviews";
+const url = "/adventurelookup/api/adventures?page=";
+
+let allAdventures = [];
 
 function SearchButton() {
   function handleClick() {
@@ -39,20 +41,58 @@ function SearchMonster(props) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(url)
-      .then((response) => {
-        setData(response.data);
+    /*
+    const fetchAdventureData = async () => {
+      try {
+        let page = 1;
+
+        const response = await fetch(`${url}${page}`);
+        const data = await response.json();
+        let adventures = data.adventures;
+
+        const total = data.total_count;
+        const pages = total / 20;
+
+        while (page < pages) {
+          ++page;
+          const response2 = await fetch(`${url}${page}`);
+          const data2 = await response2.json();
+          adventures = adventures.concat(data2.adventures);
+        }
+
+        setAdventureData(adventures);
         setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
+      } catch (error) {
+        setError(error.message);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchAdventureData();
+    */
+    const pages = 172;
+
+    for (let page = 1; page < 172; ++page) {
+      axios
+        .get(`${url}${page}`)
+        .then((response) => {
+          setData(response.data.adventures);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setError(err.message);
+          setLoading(false);
+        });
+    }
   }, []);
 
-  const adventures = data.adventures;
+  allAdventures.push(...data);
 
+  const ids = allAdventures.map((adventure) => adventure.id);
+  const uniqueIds = Array.from(new Set(ids));
+  const adventures = uniqueIds.map((id) =>
+    allAdventures.find((adventure) => adventure.id === id)
+  );
   try {
     const adventuresFiltered = adventures.filter((adventure) => {
       if (
@@ -69,14 +109,30 @@ function SearchMonster(props) {
     if (error) return <div>Error: {error}</div>;
 
     return (
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-3">
+        <h2 className="text-2xl">Featured in these adventures:</h2>
         <div className="flex flex-col flex-wrap gap-3">
           {adventuresFiltered.map((adventure) => (
-            <div className="border rounded shadow">
-              <div className="p-3">
+            <div className="rounded shadow bg-gray-100">
+              <div className="flex flex-col gap-3 m-3">
                 <h2 className="font-bold text-lg">{adventure.title}</h2>
-                <p>Edition: {adventure.edition}</p>
-                <p>Starting Level Range: {adventure.starting_level_range}</p>
+                <p>{`${adventure.description.substring(0, 200)}...`}</p>
+                <hr className="border-1 border-gray-300" />
+                <div className="flex flex-wrap justify-evenly gap-3">
+                  <p className="bg-gray-700 text-white font-bold rounded-xl px-3 py-1">
+                    {adventure.edition}
+                  </p>
+                  <p className="bg-gray-700 text-white font-bold rounded-xl px-3 py-1">
+                    Starting Level:{" "}
+                    {adventure.min_starting_level ===
+                    adventure.max_starting_level
+                      ? adventure.min_starting_level
+                      : `${adventure.min_starting_level}-${adventure.max_starting_level}`}
+                  </p>
+                  <p className="bg-gray-700 text-white font-bold rounded-xl px-3 py-1">
+                    {adventure.setting}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
@@ -90,9 +146,8 @@ function SearchMonster(props) {
 
 const Search = () => {
   return (
-    <div className="flex flex-col items-center gap-5 p-5">
-      <h1 className="text-4xl">Adventure Search</h1>
-      <h2 className="text-xl">Search for a monster below to get started:</h2>
+    <div className="flex flex-col items-center gap-5 p-5 bg-gray-50">
+      <h1 className="text-3xl">Enter a monster to start searching:</h1>
       <div>
         <input
           type="search"
@@ -102,9 +157,9 @@ const Search = () => {
         />
         <SearchButton />
       </div>
-      <div className="flex gap-5">
-        <div id="adventureRoot"></div>
+      <div className="flex flex-wrap gap-5">
         <div id="monsterRoot" className="max-w-150"></div>
+        <div id="adventureRoot" className="max-w-150"></div>
       </div>
     </div>
   );
