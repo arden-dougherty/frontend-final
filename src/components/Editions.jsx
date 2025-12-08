@@ -119,10 +119,7 @@ const Editions = () => {
           <h1 className="m-5 text-center text-3xl">
             Number of adventures by edition/system
           </h1>
-          <div
-            className="flex justify-center relative h-70vh mb-5"
-            style={{ height: "70vh", width: "70vw" }}
-          >
+          <div className="flex justify-center w-[70vw] h-[70vh] mb-5">
             <Pie
               className="mb-5 ms-5 me-5"
               data={editionData}

@@ -8,3 +8,13 @@ This application uses the [Dungeons & Dragons Adventure Lookup API]https://adven
 - Tailwind CSS
 - Chart.js
 - Axios
+
+## To run
+
+```
+npm install
+```
+
+```
+npm run dev
+```

@@ -24,13 +24,13 @@ function App() {
           className="rounded-md px-3 pt-1 text-lg text-gray-300 hover:bg-white/5 hover:text-white"
           to="/top"
         >
-          Top Monsters
+          Monsters
         </Link>
         <Link
           className="rounded-md px-3 pt-1 text-lg text-gray-300 hover:bg-white/5 hover:text-white"
           to="/editions"
         >
-          Edition Breakdown
+          Editions
         </Link>
       </nav>
 
