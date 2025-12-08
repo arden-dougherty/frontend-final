@@ -67,7 +67,7 @@ const Editions = () => {
       labels: editions.map((edition) => edition.label),
       datasets: [
         {
-          label: "Editions",
+          label: "Adventures",
           data: editions.map((edition) => edition.value),
           backgroundColor: [
             "oklch(70.4% 0.191 22.216)",

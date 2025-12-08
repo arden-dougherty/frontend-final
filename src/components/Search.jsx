@@ -122,12 +122,14 @@ const Search = () => {
       <h1 className="text-3xl text-center">
         Enter a monster to start searching:
       </h1>
+      <h2 className="text-gray-600">e.g "goblin"</h2>
       <div>
         <input
           type="search"
           id="searchBar"
           placeholder="Search"
           className="border border-neutral-200 rounded bg-gray-100 px-3 py-2 mx-3"
+          aria-label="search"
         />
         <SearchButton />
       </div>
